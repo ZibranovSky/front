@@ -1,0 +1,120 @@
+<template>
+  <div>
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center profile-header"
+        style="min-height: 600px;  background-size: cover; background-position: center top;">
+      <b-container fluid>
+        <!-- Mask -->
+        <span class="mask bg-gradient-success opacity-8"></span>
+        <!-- Header container -->
+        <b-container fluid class="d-flex align-items-center">
+          <b-row >
+            <b-col lg="7" md="10">
+              <h1 class="display-2 text-white">Daftar Pegawai</h1>
+             
+             
+               <router-link to="/admin/addPegawai" class="btn btn-info">Tambah Data</router-link>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-container>
+    </div>
+
+   
+    <b-container fluid class="mt--6">
+      <b-card no-body>
+        <b-card-header class="border-0">
+            <h3 class="mb-0">Daftar Pegawai</h3>
+        </b-card-header>
+
+         <table class="table">
+    <thead>
+        <tr>
+            <th>NIP</th>
+            <th>Nama Pegawai</th>
+            <th>Alamat Pegawai</th>
+            <th>aksi</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="item in items" :key="item.id">
+          <td>{{ item.nis }}</td>
+          <td>{{ item.namasiswa }}</td>
+          <td>{{ item.alamatsiswa }}</td>
+          <td class="has-text-centered">
+            <router-link
+              :to="{ name: 'editPegawai', params: { id: item.id } }"
+              class="button is-info is-small"
+              >Edit</router-link
+            >
+            <a class="button is-danger is-small" @click="deletePegawai(item.id)">Delete</a>
+          </td>
+        </tr>
+    </tbody>
+</table>
+    </b-card>
+    </b-container>
+  </div>
+</template>
+
+<script>
+  import axios from "axios";
+  import { Dropdown, DropdownItem, DropdownMenu, Table, TableColumn } from 'element-ui';
+  import projects from '../Tables/projects'
+  import users from '../Tables/users'
+  import LightTable from "../Tables/RegularTables/LightTable";
+  import DarkTable from "../Tables/RegularTables/DarkTable";
+
+  export default {
+    components: {
+      LightTable,
+      DarkTable,
+      [Dropdown.name]: Dropdown,
+      [DropdownItem.name]: DropdownItem,
+      [DropdownMenu.name]: DropdownMenu,
+      [Table.name]: Table,
+      [TableColumn.name]: TableColumn
+    },
+    data() {
+      return {
+        items: [],
+        projects,
+        users,
+      };
+    },
+
+    created() {
+    this.getPegawai();
+  },
+
+     methods: {
+    // Get All Products
+    async getPegawai() {
+      try {
+        const response = await axios.get("http://localhost:5000/pegawai");
+        this.items = response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+ 
+    // Delete Product
+    async deletePegawai(id) {
+      try {
+        await axios.delete(`http://localhost:5000/delPegawai/${id}`);
+        this.getPegawai();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+  };
+
+
+
+
+</script>
+
+
+<style>
+</style>
