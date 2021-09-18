@@ -14,8 +14,15 @@
 
         <sidebar-item
               :link="{
-                name: 'siswa',
-                path: '/admin/siswa',
+                name: 'Pegawai',
+                path: '/admin/pegawai',
+                icon: 'ni ni-single-02 text-yellow'
+                }">
+        </sidebar-item>
+        <sidebar-item
+              :link="{
+                name: 'Artikel',
+                path: '/admin/artikel',
                 icon: 'ni ni-single-02 text-yellow'
                 }">
         </sidebar-item>

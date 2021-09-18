@@ -23,7 +23,7 @@ import './registerServiceWorker'
 //import css files
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { TablePlugin } from 'bootstrap-vue'
+import { BootstrapVue } from 'bootstrap-vue'
 
 
 // vuetify
@@ -32,7 +32,7 @@ import vuetify from '@/plugins/vuetify' // path to vuetify export
 // router setup
 import router from './routes/router';
 // plugin setup
-Vue.use(DashboardPlugin,vuetify);
+Vue.use(DashboardPlugin,vuetify,BootstrapVue);
 
 /* eslint-disable no-new */
 new Vue({
